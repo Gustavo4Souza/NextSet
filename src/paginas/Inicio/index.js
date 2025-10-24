@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import logo from "../../../assets/logo.png";
+import logo from "../../../src/assets/logo.png";
 
 const { width, height } = Dimensions.get("window");
 

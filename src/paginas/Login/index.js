@@ -1,9 +1,9 @@
 // src/screens/Login.js
 import React, { useState } from "react";
 import {View,Text,TextInput,TouchableOpacity,StyleSheet,Image,Dimensions,Alert,ActivityIndicator} from "react-native";
-import logo from "../../../assets/logo.png";
-import logoApple from "../../../assets/logo_apple.png";
-import logoGoogle from "../../../assets/Logo_Google.png"; 
+import logo from "../../../src/assets/logo.png";
+import logoApple from "../../../src/assets/logo_apple.png";
+import logoGoogle from "../../../src/assets/Logo_Google.png"; 
 
 const { width, height } = Dimensions.get("window");
 

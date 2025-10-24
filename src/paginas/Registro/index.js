@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
-import logo from "../../../assets/logo.png";
+import logo from "../../../src/assets/logo.png";
 
 export default function Registro({ navigation }) {
   const [username, setUsername] = useState('');

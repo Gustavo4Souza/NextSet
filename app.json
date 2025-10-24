@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "orgsExpo",
-    "slug": "orgsExpo",
+    "name": "NextSet",
+    "slug": "NextSet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
 
@@ -15,7 +15,7 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/icon.png"
+      "favicon": "./src/assets/icon.png"
     }
   }
 }

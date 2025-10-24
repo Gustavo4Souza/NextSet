@@ -3,9 +3,9 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Inicio from './src/screens/Home/components/Inicio';
-import Login from './src/screens/Home/components/Login';
-import Registro from './src/screens/Home/components/Registro';
+import Inicio from "./src/paginas/Inicio";
+import Login from "./src/paginas/Login";
+import Registro from "./src/paginas/Registro";
 
 const Stack = createNativeStackNavigator();
 
