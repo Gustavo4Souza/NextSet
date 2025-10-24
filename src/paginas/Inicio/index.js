@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import logo from "../../../src/assets/logo.png";
 
 const { width, height } = Dimensions.get("window");
@@ -12,11 +13,15 @@ class Inicio extends React.Component {
           <Image source={logo} style={styles.logo} resizeMode="contain" />
         </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate("Login")} 
-        >
-          <Text style={styles.buttonText}>Vamos começar!</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
+          <LinearGradient
+            colors={["#00a6ffff", "#d000ffff"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Vamos começar!</Text>
+          </LinearGradient>
         </TouchableOpacity>
       </View>
     );
@@ -40,7 +45,6 @@ const styles = StyleSheet.create({
     height: height * 0.25,
   },
   button: {
-    backgroundColor: "#2d80deff",
     paddingVertical: 14,
     borderRadius: 10,
     alignItems: "center",

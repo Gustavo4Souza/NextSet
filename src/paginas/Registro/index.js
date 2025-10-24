@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import logo from "../../../src/assets/logo.png";
 
 export default function Registro({ navigation }) {
@@ -101,8 +102,15 @@ export default function Registro({ navigation }) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={handleContinue} style={styles.buttonSolid}>
-          <Text style={styles.buttonText}>Continue</Text>
+        <TouchableOpacity onPress={handleContinue} activeOpacity={0.9}>
+          <LinearGradient
+            colors={["#00a6ffff", "#d000ffff"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.buttonSolid}
+          >
+            <Text style={styles.buttonText}>Continue</Text>
+          </LinearGradient>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -177,7 +185,6 @@ const styles = StyleSheet.create({
     right: 20,
   },
   buttonSolid: {
-    backgroundColor: '#4facfe',
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',

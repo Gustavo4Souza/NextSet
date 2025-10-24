@@ -1,10 +1,10 @@
-// src/screens/Login.js
 import React, { useState } from "react";
-import {View,Text,TextInput,TouchableOpacity,StyleSheet,Image,Dimensions,Alert,ActivityIndicator} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Alert, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import logo from "../../../src/assets/logo.png";
 import logoApple from "../../../src/assets/logo_apple.png";
-import logoGoogle from "../../../src/assets/Logo_Google.png"; 
+import logoGoogle from "../../../src/assets/Logo_Google.png";
 
 const { width, height } = Dimensions.get("window");
 
@@ -85,9 +85,14 @@ export default function Login({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButtonTouchable} onPress={handleLogin}>
-        <View style={styles.loginButton}>
+        <LinearGradient
+          colors={["#00a6ffff", "#d000ffff"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.loginButton}
+        >
           <Text style={styles.loginText}>Login</Text>
-        </View>
+        </LinearGradient>
       </TouchableOpacity>
 
       <Text style={styles.signup}>
@@ -188,7 +193,6 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   loginButton: {
-    backgroundColor: "#4b6ef7",
     paddingVertical: 14,
     borderRadius: 10,
     alignItems: "center",
