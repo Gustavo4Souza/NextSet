@@ -1,6 +1,7 @@
 // src/screens/Login.js
 import React, { useState } from "react";
 import {View,Text,TextInput,TouchableOpacity,StyleSheet,Image,Dimensions,Alert,ActivityIndicator} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import logo from "../../../src/assets/logo.png";
 import logoApple from "../../../src/assets/logo_apple.png";
 import logoGoogle from "../../../src/assets/Logo_Google.png"; 
@@ -71,7 +72,11 @@ export default function Login({ navigation }) {
           style={styles.eyeButton}
           onPress={() => setShowPassword(prev => !prev)}
         >
-          <Text style={{ color: "#999", fontSize: 18 }}>{showPassword ? "👁️" : "👁️"}</Text>
+          <Ionicons
+            name={showPassword ? "eye" : "eye-off"}
+            size={22}
+            color="#999"
+          />
         </TouchableOpacity>
       </View>
 
@@ -92,7 +97,6 @@ export default function Login({ navigation }) {
         </Text>
       </Text>
 
-      {/* Espaço extra para separar */}
       <Text style={[styles.altText, { marginTop: 60 }]}>Ou faça login com</Text>
 
       <TouchableOpacity

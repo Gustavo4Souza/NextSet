@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../../../src/assets/logo.png";
 
@@ -13,122 +13,124 @@ export default function Registro({ navigation }) {
 
   const handleContinue = () => {
     console.log({ username, email, password, confirmPassword });
-    navigation.navigate('BiodataScreen'); 
+    navigation.navigate('BiodataScreen');
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>     
-      
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={24} color="#fff" />
-      </TouchableOpacity>
-      
-    <Image 
-      source={logo} 
-      style={{ width: 120, height: 120, marginBottom: 1 }} 
-      resizeMode="contain" 
-    />
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
 
-      <Text style={styles.title}>Crie uma conta</Text>
-      <Text style={styles.subtitle}>Ajude-nos a terminar de configurar sua conta</Text>
+        <View style={styles.header}>
+          <Image source={logo} style={styles.logo} resizeMode="contain" />
+          <Text style={styles.title}>Crie uma conta</Text>
+          <Text style={styles.subtitle}>Ajude-nos a terminar de configurar sua conta</Text>
+        </View>
 
-      <View style={styles.progressContainer}>
-        <View style={[styles.step, styles.activeStep]}>
-          <Ionicons name="information-circle" size={16} color="#fff" />
-          <Text style={styles.stepText}>Informações da Conta</Text>
+        <View style={styles.form}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Usuário:</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="person-outline" size={20} color="#aaa" style={styles.icon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Usuário"
+                placeholderTextColor="#aaa"
+                value={username}
+                onChangeText={setUsername}
+              />
+            </View>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Email:</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="mail-outline" size={20} color="#aaa" style={styles.icon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Coloque o seu email"
+                placeholderTextColor="#aaa"
+                keyboardType="email-address"
+                value={email}
+                onChangeText={setEmail}
+              />
+            </View>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Senha:</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="lock-closed-outline" size={20} color="#aaa" style={styles.icon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Coloque a sua senha"
+                placeholderTextColor="#aaa"
+                secureTextEntry={!showPassword}
+                value={password}
+                onChangeText={setPassword}
+              />
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color="#aaa" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Confirmar senha:</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="lock-closed-outline" size={20} color="#aaa" style={styles.icon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Confirme a sua senha"
+                placeholderTextColor="#aaa"
+                secureTextEntry={!showConfirmPassword}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+              />
+              <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                <Ionicons name={showConfirmPassword ? "eye" : "eye-off"} size={20} color="#aaa" />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-        <View style={[styles.step, styles.inactiveStep]}>
-          <Ionicons name="person-circle" size={16} color="#aaa" />
-          <Text style={styles.stepTextInactive}>Informações pessoais</Text>
-        </View>
+      </ScrollView>
+
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={handleContinue} style={styles.buttonSolid}>
+          <Text style={styles.buttonText}>Continue</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.progressBar}>
-        <View style={styles.progressFill} />
-        <View style={styles.progressEmpty} />
-      </View>
-
-      <View style={styles.form}>
-
-        <View style={styles.inputContainer}>
-          <Ionicons name="person-outline" size={20} color="#aaa" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Usuário"
-            placeholderTextColor="#aaa"
-            value={username}
-            onChangeText={setUsername}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Ionicons name="mail-outline" size={20} color="#aaa" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Coloque o seu email"
-            placeholderTextColor="#aaa"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Ionicons name="lock-closed-outline" size={20} color="#aaa" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Coloque a sua senha"
-            placeholderTextColor="#aaa"
-            secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={setPassword}
-          />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color="#aaa" />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Ionicons name="lock-closed-outline" size={20} color="#aaa" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Confirme a sua senha"
-            placeholderTextColor="#aaa"
-            secureTextEntry={!showConfirmPassword}
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-          />
-          <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-            <Ionicons name={showConfirmPassword ? "eye" : "eye-off"} size={20} color="#aaa" />
-          </TouchableOpacity>
-        </View>
-
- <TouchableOpacity onPress={handleContinue} style={{ marginTop: 250 }}>
-  <View style={[styles.button, styles.buttonSolid]}>
-    <Text style={styles.buttonText}>Continue</Text>
-  </View>
-</TouchableOpacity>
-      </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     backgroundColor: '#000',
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+  },
+  scrollContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 80,
   },
   backButton: {
     alignSelf: 'flex-start',
     marginBottom: 10,
   },
+  header: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
   logo: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#6a5acd',
-    marginBottom: 1,
+    width: 120,
+    height: 120,
+    marginBottom: 5,
   },
   title: {
     fontSize: 22,
@@ -138,59 +140,26 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 14,
     color: '#aaa',
-    marginBottom: 25,
-  },
-  progressContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 5,
-  },
-  step: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  stepText: {
-    color: '#fff',
-    marginLeft: 5,
-    fontSize: 12,
-  },
-  stepTextInactive: {
-    color: '#aaa',
-    marginLeft: 5,
-    fontSize: 12,
-  },
-  activeStep: {
-    opacity: 1,
-  },
-  inactiveStep: {
-    opacity: 0.6,
-  },
-  progressBar: {
-    flexDirection: 'row',
-    height: 3,
-    width: '100%',
-    backgroundColor: '#222',
-    borderRadius: 3,
-    marginBottom: 20,
-  },
-  progressFill: {
-    flex: 1,
-    backgroundColor: '#4facfe',
-  },
-  progressEmpty: {
-    flex: 1,
-    backgroundColor: '#222',
+    textAlign: 'center',
+    marginTop: 4,
   },
   form: {
     width: '100%',
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
+  label: {
+    color: '#fff',
+    fontSize: 14,
+    marginBottom: 6,
+    marginLeft: 5,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1f1f1f',
     borderRadius: 10,
-    marginBottom: 15,
     paddingHorizontal: 10,
   },
   icon: {
@@ -201,16 +170,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     paddingVertical: 12,
   },
-  button: {
-    padding: 15,
+  footer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+  },
+  buttonSolid: {
+    backgroundColor: '#4facfe',
+    paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
-  },
-  buttonSolid: {
-    backgroundColor: '#4facfe',
   },
 });
