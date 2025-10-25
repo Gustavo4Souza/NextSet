@@ -14,13 +14,9 @@ export default function Login({ navigation }) {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    if (!email || !senha) {
-      Alert.alert("Erro", "Preencha e-mail e senha.");
-      return;
-    }
-    navigation.navigate("Home");
-  };
+const handleLogin = () => {
+  navigation.navigate("Treinos");
+};
 
   const handleForgotPassword = () => {
     Alert.alert("Forgot password", "Implementar recuperação de senha.");
@@ -36,7 +32,7 @@ export default function Login({ navigation }) {
       setTimeout(() => {
         setLoadingGoogle(false);
         Alert.alert("Google Login", "Simulação concluída — usuário logado (mock).");
-        navigation.navigate("Home");
+        navigation.navigate("Treinos");
       }, 1000);
     } catch (err) {
       setLoadingGoogle(false);
