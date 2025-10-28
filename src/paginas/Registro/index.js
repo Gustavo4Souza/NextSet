@@ -14,7 +14,7 @@ export default function Registro({ navigation }) {
 
   const handleRegister = () => {
     console.log({ username, email, password, confirmPassword });
-    navigation.navigate('BiodataScreen');
+    navigation.navigate('Relatorio');
   };
 
   return (

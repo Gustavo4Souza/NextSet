@@ -66,14 +66,6 @@ export default function Treinos() {
 
       <View style={styles.divider} />
 
-      <View style={styles.circleContainer}>
-        <TouchableOpacity style={styles.circleButton}>
-          <Ionicons name="add" size={44} color="#8b5cf6" />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.divider} />
-
       <View style={styles.bottomNav}>
         <Ionicons name="barbell-outline" size={24} color="#7b5cff" />
         <Ionicons name="home-outline" size={24} color="#fff" />
@@ -130,15 +122,6 @@ const styles = StyleSheet.create({
   },
   circleContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  circleButton: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 3,
-    borderColor: "#8b5cf6",
     justifyContent: "center",
     alignItems: "center",
   },
