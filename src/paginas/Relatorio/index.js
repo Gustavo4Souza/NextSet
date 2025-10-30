@@ -6,14 +6,21 @@ import { Ionicons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
-export default function EditProfile() {
+export default function EditProfile({ navigation }) {
   const [goal, setGoal] = useState("");
   const [expectation, setExpectation] = useState("rápido");
   const [profileImage, setProfileImage] = useState(null);
+  const [apelido, setApelido] = useState("");
+  const [peso, setPeso] = useState("");
+  const [altura, setAltura] = useState("");
+  const [pesoAlvo, setPesoAlvo] = useState("");
+  const [dataNasc, setDataNasc] = useState("");
+  const [inicioProjeto, setInicioProjeto] = useState("");
+  const [fimProjeto, setFimProjeto] = useState("");
+  const [email, setEmail] = useState("");
 
   const pickImage = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
     if (!permission.granted) {
       Alert.alert("Permissão necessária", "Precisamos do acesso à galeria!");
       return;
@@ -31,8 +38,35 @@ export default function EditProfile() {
     }
   };
 
+  const handleSave = () => {
+    if (!apelido || !email) {
+      Alert.alert("Atenção", "Preencha pelo menos apelido e email.");
+      return;
+    }
+
+    const dadosPerfil = {
+      apelido,
+      email,
+      objetivo: goal,
+      expectation,
+      peso,
+      altura,
+      pesoAlvo,
+      dataNasc,
+      inicioProjeto,
+      fimProjeto,
+      profileImage,
+    };
+
+    navigation.navigate("Config", { perfil: dadosPerfil });
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 50 }}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Config")}>
+        <Ionicons name="arrow-back" size={26} color="#fff" />
+      </TouchableOpacity>
+
       <Text style={styles.title}>Editar Perfil</Text>
       <Text style={styles.subtitle}>Tenha uma conta ativa</Text>
 
@@ -52,7 +86,7 @@ export default function EditProfile() {
 
         <View style={styles.textContainer}>
           <Text style={styles.greeting}>Olá,</Text>
-          <Text style={styles.name}>Nome</Text>
+          <Text style={styles.name}>{apelido || "Usuário"}</Text>
 
           <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
             <LinearGradient
@@ -77,9 +111,7 @@ export default function EditProfile() {
           >
             <LinearGradient
               colors={
-                goal === item
-                  ? ["#00a6ffff", "#d000ffff"]
-                  : ["transparent", "transparent"]
+                goal === item ? ["#00a6ffff", "#d000ffff"] : ["transparent", "transparent"]
               }
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
@@ -97,7 +129,13 @@ export default function EditProfile() {
 
       <View style={styles.inputGroup}>
         <Text style={styles.inputLabel}>Apelido</Text>
-        <TextInput style={styles.input} placeholder="Apelido" placeholderTextColor="#aaa" />
+        <TextInput
+          style={styles.input}
+          placeholder="Apelido"
+          placeholderTextColor="#aaa"
+          value={apelido}
+          onChangeText={setApelido}
+        />
       </View>
 
       <View style={styles.rowInput}>
@@ -108,6 +146,8 @@ export default function EditProfile() {
             placeholder="Peso (kg)"
             placeholderTextColor="#aaa"
             keyboardType="numeric"
+            value={peso}
+            onChangeText={setPeso}
           />
         </View>
 
@@ -118,6 +158,8 @@ export default function EditProfile() {
             placeholder="Altura (m)"
             placeholderTextColor="#aaa"
             keyboardType="decimal-pad"
+            value={altura}
+            onChangeText={setAltura}
           />
         </View>
       </View>
@@ -129,6 +171,8 @@ export default function EditProfile() {
           placeholder="Peso Alvo (kg)"
           placeholderTextColor="#aaa"
           keyboardType="numeric"
+          value={pesoAlvo}
+          onChangeText={setPesoAlvo}
         />
       </View>
 
@@ -159,11 +203,11 @@ export default function EditProfile() {
         </TouchableOpacity>
       </View>
 
-      {[
-        { label: "Data de nascimento", placeholder: "dd/MM/yyyy" },
-        { label: "Início do projeto", placeholder: "dd/MM/yyyy" },
-        { label: "Fim do projeto", placeholder: "dd/MM/yyyy" },
-      ].map(({ label, placeholder }) => (
+      {[ 
+        { label: "Data de nascimento", placeholder: "dd/MM/yyyy", value: dataNasc, setValue: setDataNasc },
+        { label: "Início do projeto", placeholder: "dd/MM/yyyy", value: inicioProjeto, setValue: setInicioProjeto },
+        { label: "Fim do projeto", placeholder: "dd/MM/yyyy", value: fimProjeto, setValue: setFimProjeto },
+      ].map(({ label, placeholder, value, setValue }) => (
         <View key={label} style={styles.inputGroup}>
           <Text style={styles.inputLabel}>{label}</Text>
           <TextInput
@@ -171,6 +215,8 @@ export default function EditProfile() {
             placeholder={placeholder}
             placeholderTextColor="#aaa"
             keyboardType="numbers-and-punctuation"
+            value={value}
+            onChangeText={setValue}
           />
         </View>
       ))}
@@ -182,10 +228,12 @@ export default function EditProfile() {
           placeholder="Email"
           placeholderTextColor="#aaa"
           keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
         />
       </View>
 
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <LinearGradient
           colors={["#00a6ffff", "#d000ffff"]}
           start={{ x: 0, y: 0 }}
@@ -205,11 +253,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     paddingHorizontal: 20,
   },
+  backButton: {
+    marginTop: 45,
+    marginBottom: 10,
+  },
   title: {
     color: "#fff",
     fontSize: 22,
     fontWeight: "bold",
-    marginTop: 20,
   },
   subtitle: {
     color: "#aaa",

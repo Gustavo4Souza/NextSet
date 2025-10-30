@@ -6,6 +6,7 @@ import Login from '../paginas/Login';
 import Registro from "../paginas/Registro";
 import Treinos from '../paginas/Treinos';
 import Relatorio from '../paginas/Relatorio';
+import Config from '../paginas/Config';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function Navigation() {
       <Stack.Screen name="Registro" component={Registro} />
       <Stack.Screen name="Treinos" component={Treinos} />    
       <Stack.Screen name="Relatorio" component={Relatorio} />  
+      <Stack.Screen name="Config" component={Config} />  
     </Stack.Navigator>
   );
 }

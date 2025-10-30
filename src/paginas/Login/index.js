@@ -10,13 +10,13 @@ const { width, height } = Dimensions.get("window");
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-const handleLogin = () => {
-  navigation.navigate("Treinos");
-};
+  const handleLogin = () => {
+    navigation.navigate("Treinos");
+  };
 
   const handleForgotPassword = () => {
     Alert.alert("Forgot password", "Implementar recuperação de senha.");
@@ -61,12 +61,12 @@ const handleLogin = () => {
           placeholder="Senha"
           placeholderTextColor="#999"
           secureTextEntry={!showPassword}
-          value={senha}
-          onChangeText={setSenha}
+          value={password}
+          onChangeText={setPassword}
         />
         <TouchableOpacity
           style={styles.eyeButton}
-          onPress={() => setShowPassword(prev => !prev)}
+          onPress={() => setShowPassword((prev) => !prev)}
         >
           <Ionicons
             name={showPassword ? "eye" : "eye-off"}
@@ -76,11 +76,11 @@ const handleLogin = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotBtn}>
-        <Text style={styles.forgot}>Esqueceu a senha?</Text>
+      <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotButton}>
+        <Text style={styles.forgotText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginButtonTouchable} onPress={handleLogin}>
+      <TouchableOpacity style={styles.loginButtonWrapper} onPress={handleLogin}>
         <LinearGradient
           colors={["#00a6ffff", "#d000ffff"]}
           start={{ x: 0, y: 0 }}
@@ -91,9 +91,9 @@ const handleLogin = () => {
         </LinearGradient>
       </TouchableOpacity>
 
-      <Text style={styles.signup}>
+      <Text style={styles.signUpText}>
         Não tem uma conta?{" "}
-        <Text onPress={handleSignUp} style={styles.signupLink}>
+        <Text onPress={handleSignUp} style={styles.signUpLink}>
           Cadastre-se
         </Text>
       </Text>
@@ -176,15 +176,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  forgotBtn: {
+  forgotButton: {
     width: width * 0.9,
     alignItems: "flex-start",
     marginBottom: 18,
   },
-  forgot: {
+  forgotText: {
     color: "#5ce1e6",
   },
-  loginButtonTouchable: {
+  loginButtonWrapper: {
     width: width * 0.9,
     marginBottom: 14,
   },
@@ -198,11 +198,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
   },
-  signup: {
+  signUpText: {
     color: "#fff",
     marginBottom: 18,
   },
-  signupLink: {
+  signUpLink: {
     color: "#5ce1e6",
     fontWeight: "600",
   },

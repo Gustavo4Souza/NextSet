@@ -5,16 +5,14 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const { height } = Dimensions.get("window");
 
-export default function Treinos() {
+export default function Treinos({ navigation }) {
   const today = new Date();
   const todayIndex = today.getDay();
-
   const daysOfWeek = ["dom", "seg.", "ter.", "qua.", "quin.", "sex.", "sab."];
 
   const getWeekDates = () => {
     const startOfWeek = new Date(today);
     startOfWeek.setDate(today.getDate() - todayIndex);
-
     return Array.from({ length: 7 }).map((_, i) => {
       const date = new Date(startOfWeek);
       date.setDate(startOfWeek.getDate() + i);
@@ -23,7 +21,6 @@ export default function Treinos() {
   };
 
   const weekDates = getWeekDates();
-
   const [selectedDays, setSelectedDays] = useState([]);
 
   const toggleDaySelection = (index) => {
@@ -67,10 +64,21 @@ export default function Treinos() {
       <View style={styles.divider} />
 
       <View style={styles.bottomNav}>
-        <Ionicons name="barbell-outline" size={24} color="#7b5cff" />
-        <Ionicons name="home-outline" size={24} color="#fff" />
-        <Ionicons name="calendar-outline" size={24} color="#fff" />
-        <Ionicons name="person-outline" size={24} color="#fff" />
+        <TouchableOpacity>
+          <Ionicons name="barbell-outline" size={24} color="#7b5cff" />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Ionicons name="home-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Ionicons name="calendar-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("Config")}>
+          <Ionicons name="person-outline" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -119,11 +127,6 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#3f3f3fff",
     marginVertical: 12,
-  },
-  circleContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   bottomNav: {
     position: "absolute",
