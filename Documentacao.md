@@ -1,55 +1,81 @@
-# 📘 Documento de Visão – Aplicativo de Treinos
+# 📘 NextSet – Aplicativo de Treinos Personalizados e Gamificados
 
-## 1. Objetivo
-Desenvolver um aplicativo mobile que:
+O **NextSet** é um aplicativo mobile voltado para iniciantes e praticantes experientes de musculação.  
+Seu objetivo é gerar treinos personalizados, acompanhar o progresso do usuário e manter o engajamento por meio de recursos de **gamificação**, incentivando a consistência e a evolução física.
 
-- Gere treinos personalizados a partir de um questionário inicial para iniciantes.
-- Disponibilize uma área avançada, onde usuários experientes possam construir seus próprios treinos.
-- Permita que o usuário registre e acompanhe seu progresso (repetições, cargas, séries e histórico).
-- Inclua transcrição/descrição dos exercícios para auxiliar na execução correta.
-- Aplique gamificação para manter o engajamento, com ofensivas diárias (streaks), conquistas e recompensas.
+---
 
-## 2. Público-Alvo
-- Iniciantes na musculação que precisam de um guia automatizado.
-- Usuários experientes que desejam personalizar seus treinos.
+## 🔨 Funcionalidades do Projeto
 
-## 3. Funcionalidades Principais (MVP + Gamificação)
+Nesta etapa do projeto, foi desenvolvido o fluxo de navegação e as principais telas do aplicativo:
 
-### 3.1 Cadastro do Usuário
-- Informações básicas: idade, peso, altura, objetivo e nível de treino.
+- **Cadastro do Usuário:** coleta informações como idade, peso, altura, objetivo e nível de treino.  
+- **Questionário Inicial (para iniciantes):** gera automaticamente um plano de treino personalizado com base no perfil e nas metas do usuário.  
+- **Área Avançada – Criador de Treinos:** permite selecionar grupos musculares, definir exercícios, séries, repetições e cargas, além de salvar, editar e duplicar treinos personalizados.  
+- **Acompanhamento de Progresso:** registra séries, repetições e cargas, exibindo histórico e gráficos de evolução.  
+- **Descrição dos Exercícios:** oferece guias rápidos em texto, imagem ou vídeo para auxiliar na execução correta.  
+- **Gamificação (estilo Duolingo):**
+  - 🧩 Ofensivas diárias (streaks) – mantenha sua sequência de treinos sem falhar  
+  - ⭐ Pontuação e XP por treino concluído  
+  - 🏆 Níveis e recompensas desbloqueáveis  
+  - 🥇 Medalhas e conquistas (ex: “7 dias seguidos”, “1 mês de treinos”)  
+  - 📊 Ranking local opcional  
 
-### 3.2 Questionário Inicial (para iniciantes)
-- Geração automática de treino com base no perfil do usuário.
+💾 **Funcionalidade Offline:** todos os dados são armazenados localmente no dispositivo, dispensando conexão com servidor externo.
 
-### 3.3 Área Avançada – Criador de Treinos
-- Escolha de grupos musculares, definição de exercícios, séries, repetições e cargas.
-- Salvar, editar e duplicar treinos personalizados.
+---
 
-### 3.4 Acompanhamento de Progresso
-- Registro de séries, repetições e cargas.
-- Histórico de treinos e gráficos de evolução.
+## ✔️ Técnicas e Tecnologias Utilizadas
 
-### 3.5 Descrição dos Exercícios
-- Guia rápido em texto, imagem ou link de vídeo.
+Durante o desenvolvimento do **NextSet** utilizaremos:
 
-### 3.6 Gamificação (estilo Duolingo)
-- Ofensivas diárias (streaks): manter sequência de treinos sem falhar.
-- Pontuação/XP: cada treino concluído gera pontos de experiência.
-- Níveis e recompensas: subir de nível ao acumular pontos, desbloqueando conquistas.
-- Medalhas/Badges: por metas alcançadas (ex: “7 dias seguidos”, “1 mês de treinos”).
-- Ranking local (opcional): comparar consigo mesmo ou com amigos.
+- **React Native**
+- **Expo**
+- **React Navigation**
+- **AsyncStorage** (armazenamento offline)
+- **Charts.js** ou **Victory Native** (para gráficos de progresso)
 
-### 3.7 Funcionalidade Offline
-- Todos os dados salvos no dispositivo, sem banco externo obrigatório.
+---
 
-## 4. Diferenciais
-- Do iniciante ao avançado → atende perfis diferentes em um único app.
-- Treinos personalizados automáticos para quem está começando.
-- Área avançada para criação livre de treinos.
-- Progresso visível → gráficos motivacionais e histórico.
-- Gamificação engajante → streaks, conquistas e badges que incentivam consistência.
+## 🎨 Link do Figma
 
-## 5. Escopo Futuro
-- Ranking global (com backend).
-- Competição entre amigos.
-- Recompensas virtuais e desafios semanais.
+👉 [Clique aqui para visualizar o design do projeto](INSIRA_AQUI_O_LINK_DO_FIGMA)
+
+---
+
+## 🛠️ Como Abrir e Rodar o Projeto
+
+1. Instale as dependências:
+   ```bash
+   npm install
+
+2. Inicie o app com:
+   ```bash
+   npm expo start
+
+3. No terminal, selecione a opção “a” para abrir o emulador Android (ou escaneie o QR Code no app do Expo).
+
+---
+
+## 🚀 Diferenciais do NextSet
+
+- Atende **usuários iniciantes e avançados**  
+- **Geração automática de treinos** com base no perfil do usuário  
+- **Criação livre de treinos personalizados**  
+- **Acompanhamento visual do progresso**, com gráficos e histórico  
+- **Sistema de gamificação** envolvente e motivacional  
+
+---
+
+## 📈 Escopo Futuro
+
+- Ranking global com backend  
+- Competição entre amigos  
+- Recompensas virtuais e desafios semanais  
+
+---
+
+## 📚 Mais Informações
+
+O **NextSet** é um aplicativo fictício com fins educacionais.  
+Seu objetivo é explorar o desenvolvimento de aplicações mobile completas com **React Native**, incluindo **navegação**, **armazenamento local**, **visualização de dados** e **gamificação**.
