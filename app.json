@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "NextSet",
+    "slug": "NextSet",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./src/assets/icon.png"
+    }
+  }
+}
