@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Platform } from 'react-native';
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
+import FormInput from "../../components/FormInput/FormInput";
+import BackButton from "../../components/BackButton/BackButton";
 import logo from "../../../src/assets/logo.png";
 
 export default function Registro({ navigation }) {
@@ -9,8 +10,6 @@ export default function Registro({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleRegister = () => {
     console.log({ username, email, password, confirmPassword });
@@ -23,9 +22,7 @@ export default function Registro({ navigation }) {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
+        <BackButton onPress={() => navigation.goBack()} style={styles.backButton} />
 
         <View style={styles.header}>
           <Image source={logo} style={styles.logo} resizeMode="contain" />
@@ -36,67 +33,47 @@ export default function Registro({ navigation }) {
         <View style={styles.form}>
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Usuário:</Text>
-            <View style={styles.inputContainer}>
-              <Ionicons name="person-outline" size={20} color="#aaa" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Usuário"
-                placeholderTextColor="#aaa"
-                value={username}
-                onChangeText={setUsername}
-              />
-            </View>
+            <FormInput
+              value={username}
+              onChangeText={setUsername}
+              placeholder="Usuário"
+              icon="person-outline"
+            />
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Email:</Text>
-            <View style={styles.inputContainer}>
-              <Ionicons name="mail-outline" size={20} color="#aaa" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Coloque o seu email"
-                placeholderTextColor="#aaa"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
+            <FormInput
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Coloque o seu email"
+              icon="mail-outline"
+              keyboardType="email-address"
+            />
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Senha:</Text>
-            <View style={styles.inputContainer}>
-              <Ionicons name="lock-closed-outline" size={20} color="#aaa" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Coloque a sua senha"
-                placeholderTextColor="#aaa"
-                secureTextEntry={!showPassword}
-                value={password}
-                onChangeText={setPassword}
-              />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color="#aaa" />
-              </TouchableOpacity>
-            </View>
+            <FormInput
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Coloque a sua senha"
+              icon="lock-closed-outline"
+              secureTextEntry={true}
+              showPasswordToggle={true}
+            />
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Confirmar senha:</Text>
-            <View style={styles.inputContainer}>
-              <Ionicons name="lock-closed-outline" size={20} color="#aaa" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Confirme a sua senha"
-                placeholderTextColor="#aaa"
-                secureTextEntry={!showConfirmPassword}
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-              />
-              <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-                <Ionicons name={showConfirmPassword ? "eye" : "eye-off"} size={20} color="#aaa" />
-              </TouchableOpacity>
-            </View>
+            <FormInput
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              placeholder="Confirme a sua senha"
+              icon="lock-closed-outline"
+              secureTextEntry={true}
+              showPasswordToggle={true}
+            />
           </View>
         </View>
       </ScrollView>
@@ -162,21 +139,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 6,
     marginLeft: 5,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1f1f1f',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-  },
-  icon: {
-    marginRight: 8,
-  },
-  input: {
-    flex: 1,
-    color: '#fff',
-    paddingVertical: 12,
   },
   footer: {
     position: 'absolute',

@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { 
   View, 
   Text, 
-  TextInput, 
   TouchableOpacity, 
   ScrollView, 
   StyleSheet, 
   Dimensions, 
-  Image, 
   Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+import GoalSelector from "../../components/GoalSelector/GoalSelector";
+import FormInput from "../../components/FormInput/FormInput";
+import BackButton from "../../components/BackButton/BackButton";
 
 const { width } = Dimensions.get("window");
 
@@ -53,114 +55,62 @@ export default function EditProfile({ navigation }) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 50 }}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Config")}>
-        <Ionicons name="arrow-back" size={26} color="#fff" />
-      </TouchableOpacity>
+      <BackButton onPress={() => navigation.navigate("Config")} style={styles.backButton} />
 
       <Text style={styles.title}>Editar Perfil</Text>
       <Text style={styles.subtitle}>Tenha uma conta ativa</Text>
 
-      <View style={styles.profileRow}>
-        <LinearGradient
-          colors={["#00a6ffff", "#d000ffff"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.gradientCircle}
-        >
-          {profileImage ? (
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
-          ) : (
-            <Ionicons name="person" size={70} color="#fff" />
-          )}
-        </LinearGradient>
+      <ProfileHeader
+        profileImage={profileImage}
+        nickname={nickname}
+        greeting="Olá,"
+        onUploadPress={pickImage}
+        showUploadButton={true}
+      />
 
-        <View style={styles.textContainer}>
-          <Text style={styles.greeting}>Olá,</Text>
-          <Text style={styles.name}>{nickname || "Usuário"}</Text>
-
-          <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
-            <LinearGradient
-              colors={["#00a6ffff", "#d000ffff"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.gradientUpload}
-            >
-              <Text style={styles.uploadText}>Upload de uma foto</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <Text style={styles.label}>Qual é o seu Objetivo?</Text>
-      <View style={styles.goalsContainer}>
-        {["Emagrecer", "Condição Física", "Ganho de Massa Muscular"].map((item) => (
-          <TouchableOpacity
-            key={item}
-            style={[styles.goalButton, goal === item && styles.goalButtonSelected]}
-            onPress={() => setGoal(item)}
-          >
-            <LinearGradient
-              colors={
-                goal === item ? ["#00a6ffff", "#d000ffff"] : ["transparent", "transparent"]
-              }
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.goalGradient}
-            >
-              <Text style={[styles.goalText, goal === item && styles.goalTextSelected]}>
-                {item}
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <GoalSelector
+        selectedGoal={goal}
+        onSelectGoal={setGoal}
+      />
 
       <View style={styles.inputGroup}>
         <Text style={styles.inputLabel}>Apelido</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Apelido"
-          placeholderTextColor="#aaa"
+        <FormInput
           value={nickname}
           onChangeText={setNickname}
+          placeholder="Apelido"
         />
       </View>
 
       <View style={styles.rowInput}>
         <View style={[styles.inputGroup, styles.halfInput]}>
           <Text style={styles.inputLabel}>Peso (kg)</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Peso (kg)"
-            placeholderTextColor="#aaa"
-            keyboardType="numeric"
+          <FormInput
             value={weight}
             onChangeText={setWeight}
+            placeholder="Peso (kg)"
+            keyboardType="numeric"
           />
         </View>
 
         <View style={[styles.inputGroup, styles.halfInput]}>
           <Text style={styles.inputLabel}>Altura (m)</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Altura (m)"
-            placeholderTextColor="#aaa"
-            keyboardType="decimal-pad"
+          <FormInput
             value={height}
             onChangeText={setHeight}
+            placeholder="Altura (m)"
+            keyboardType="decimal-pad"
           />
         </View>
       </View>
 
       <View style={styles.inputGroup}>
         <Text style={styles.inputLabel}>Peso Alvo (kg)</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Peso Alvo (kg)"
-          placeholderTextColor="#aaa"
-          keyboardType="numeric"
+        <FormInput
           value={targetWeight}
           onChangeText={setTargetWeight}
+          placeholder="Peso Alvo (kg)"
+          keyboardType="numeric"
         />
       </View>
 
@@ -192,26 +142,22 @@ export default function EditProfile({ navigation }) {
       ].map(({ label, placeholder, value, setValue }) => (
         <View key={label} style={styles.inputGroup}>
           <Text style={styles.inputLabel}>{label}</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={placeholder}
-            placeholderTextColor="#aaa"
-            keyboardType="numbers-and-punctuation"
+          <FormInput
             value={value}
             onChangeText={setValue}
+            placeholder={placeholder}
+            keyboardType="numbers-and-punctuation"
           />
         </View>
       ))}
 
       <View style={styles.inputGroup}>
         <Text style={styles.inputLabel}>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#aaa"
-          keyboardType="email-address"
+        <FormInput
           value={email}
           onChangeText={setEmail}
+          placeholder="Email"
+          keyboardType="email-address"
         />
       </View>
 
@@ -249,83 +195,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 20,
   },
-  profileRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 25,
-  },
-  gradientCircle: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-  profileImage: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 45,
-  },
-  textContainer: {
-    marginLeft: 15,
-  },
-  greeting: {
-    color: "#aaa",
-    fontSize: 16,
-  },
-  name: {
-    color: "#fff",
-    fontSize: 22,
-    fontWeight: "bold",
-  },
-  uploadButton: {
-    marginTop: 8,
-    borderRadius: 20,
-    overflow: "hidden",
-    alignSelf: "flex-start",
-  },
-  gradientUpload: {
-    paddingVertical: 5,
-    paddingHorizontal: 18,
-    borderRadius: 20,
-  },
-  uploadText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
   label: {
     color: "#fff",
     fontSize: 16,
     marginBottom: 8,
     marginTop: 15,
-  },
-  goalsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    marginBottom: 10,
-  },
-  goalButton: {
-    borderColor: "#00a6ffff",
-    borderWidth: 1,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-  goalGradient: {
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 20,
-  },
-  goalButtonSelected: {
-    borderColor: "transparent",
-  },
-  goalText: {
-    color: "#00a6ffff",
-  },
-  goalTextSelected: {
-    color: "#fff",
-    fontWeight: "600",
   },
   inputGroup: {
     marginTop: 10,
@@ -334,14 +208,6 @@ const styles = StyleSheet.create({
     color: "#ccc",
     fontSize: 14,
     marginBottom: 4,
-  },
-  input: {
-    backgroundColor: "#1f1f1f",
-    color: "#fff",
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    fontSize: 15,
   },
   rowInput: {
     flexDirection: "row",

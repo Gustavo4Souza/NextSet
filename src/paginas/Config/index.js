@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+import SettingsOption from "../../components/SettingsOption/SettingsOption";
+import BackButton from "../../components/BackButton/BackButton";
 
 export default function Settings({ route, navigation }) {
   const [profile, setProfile] = useState(null);
@@ -38,36 +41,28 @@ export default function Settings({ route, navigation }) {
     }
   };
 
+  const settingsOptions = [
+    { icon: "lock-closed", label: "Senha" },
+    { icon: "help-circle", label: "Ajuda" },
+    { icon: "notifications", label: "Notificações" },
+    { icon: "chatbubbles", label: "Feedback" },
+    { icon: "bug", label: "Reportar erro" },
+  ];
+
   return (
     <ScrollView style={styles.container}>
-      <TouchableOpacity
-        style={styles.backButton}
+      <BackButton 
         onPress={() => navigation.navigate("Treinos")}
-      >
-        <Ionicons name="arrow-back" size={26} color="#fff" />
-      </TouchableOpacity>
+        style={styles.backButton}
+      />
 
       <Text style={styles.title}>Configurações</Text>
 
-      <View style={styles.profileContainer}>
-        <LinearGradient
-          colors={["#00a6ffff", "#d000ffff"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.gradientCircle}
-        >
-          {profile?.profileImage ? (
-            <Image source={{ uri: profile.profileImage }} style={styles.profileImage} />
-          ) : (
-            <Ionicons name="person" size={60} color="#fff" />
-          )}
-        </LinearGradient>
-
-        <View style={{ marginLeft: 12 }}>
-          <Text style={styles.name}>{profile?.nickname || "Usuário"}</Text>
-          <Text style={styles.plan}>Plano: TP 1+</Text>
-        </View>
-      </View>
+      <ProfileHeader
+        profileImage={profile?.profileImage}
+        nickname={profile?.nickname}
+        plan="Plano: TP 1+"
+      />
 
       <View style={styles.infoBox}>
         {profile?.goal && (
@@ -136,37 +131,21 @@ export default function Settings({ route, navigation }) {
         )}
       </View>
 
-      {[
-        { icon: "lock-closed", label: "Senha" },
-        { icon: "help-circle", label: "Ajuda" },
-        { icon: "notifications", label: "Notificações" },
-        { icon: "chatbubbles", label: "Feedback" },
-        { icon: "bug", label: "Reportar erro" },
-      ].map((item, i) => (
-        <TouchableOpacity key={i} style={styles.option}>
-          <LinearGradient
-            colors={["#00a6ffff", "#d000ffff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.iconContainer}
-          >
-            <Ionicons name={item.icon} size={20} color="#fff" />
-          </LinearGradient>
-          <Text style={styles.optionText}>{item.label}</Text>
-        </TouchableOpacity>
+      {settingsOptions.map((item, i) => (
+        <SettingsOption
+          key={i}
+          icon={item.icon}
+          label={item.label}
+          onPress={() => {}}
+        />
       ))}
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <LinearGradient
-          colors={["#ff3b3b", "#b30000"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.logoutGradient}
-        >
-          <Ionicons name="exit" size={20} color="#fff" />
-          <Text style={styles.logoutText}>Sair do aplicativo</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+      <SettingsOption
+        icon="exit"
+        label="Sair do aplicativo"
+        onPress={handleLogout}
+        gradientColors={["#ff3b3b", "#b30000"]}
+      />
 
       <Text style={styles.version}>Versão 1.0.0</Text>
     </ScrollView>
@@ -180,46 +159,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   backButton: {
-    position: "absolute",
-    top: 40,
-    left: 20,
-    zIndex: 10,
+    marginTop: 20,
+    marginBottom: 10,
   },
   title: {
     color: "#fff",
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 20,
-    marginTop: 40,
     textAlign: "center",
-  },
-  profileContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 25,
-    marginTop: 20,
-  },
-  gradientCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-  profileImage: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 40,
-  },
-  name: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  plan: {
-    color: "#aaa",
-    fontSize: 13,
   },
   infoBox: {
     backgroundColor: "#1a1a1a",
@@ -236,44 +184,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 15,
     fontWeight: "bold",
-  },
-  option: {
-    backgroundColor: "#1a1a1a",
-    borderRadius: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 12,
-    marginBottom: 10,
-  },
-  iconContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 12,
-  },
-  optionText: {
-    color: "#fff",
-    fontSize: 16,
-  },
-  logoutButton: {
-    marginTop: 20,
-    borderRadius: 12,
-    overflow: "hidden",
-  },
-  logoutGradient: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-    paddingVertical: 12,
-    borderRadius: 12,
-  },
-  logoutText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
   },
   version: {
     color: "#666",

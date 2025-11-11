@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { 
   View, 
   Text, 
-  TextInput, 
   TouchableOpacity, 
   StyleSheet, 
   Image, 
   Dimensions, 
   Alert, 
   ActivityIndicator } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import GradientButton from "../../components/GradientButton/GradientButton";
+import FormInput from "../../components/FormInput/FormInput";
 import logo from "../../../src/assets/logo.png";
 import logoApple from "../../../src/assets/logo_apple.png";
 import logoGoogle from "../../../src/assets/Logo_Google.png";
@@ -21,7 +20,6 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
     navigation.navigate("MainTabs", { screen: "Home" });
@@ -54,36 +52,23 @@ export default function Login({ navigation }) {
       <Image source={logo} style={styles.logoImage} resizeMode="contain" />
       <Text style={styles.title}>Faça login com sua conta</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#999"
+      <FormInput
         value={email}
         onChangeText={setEmail}
+        placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
+        style={styles.input}
       />
 
-      <View style={styles.inputWrapper}>
-        <TextInput
-          style={styles.inputWithIcon}
-          placeholder="Senha"
-          placeholderTextColor="#999"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TouchableOpacity
-          style={styles.eyeButton}
-          onPress={() => setShowPassword((prev) => !prev)}
-        >
-          <Ionicons
-            name={showPassword ? "eye" : "eye-off"}
-            size={22}
-            color="#999"
-          />
-        </TouchableOpacity>
-      </View>
+      <FormInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder="Senha"
+        secureTextEntry={true}
+        showPasswordToggle={true}
+        style={styles.input}
+      />
 
       <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotButton}>
         <Text style={styles.forgotText}>Esqueceu a senha?</Text>
@@ -149,36 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   input: {
-    backgroundColor: "#1c1c1e",
-    color: "#fff",
     width: width * 0.9,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    marginBottom: 12,
-    fontSize: 15,
-  },
-  inputWrapper: {
-    width: width * 0.9,
-    position: "relative",
-    marginBottom: 12,
-  },
-  inputWithIcon: {
-    backgroundColor: "#1c1c1e",
-    color: "#fff",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    fontSize: 15,
-    paddingRight: 46,
-  },
-  eyeButton: {
-    position: "absolute",
-    right: 12,
-    top: 10,
-    height: 26,
-    justifyContent: "center",
-    alignItems: "center",
   },
   forgotButton: {
     width: width * 0.9,

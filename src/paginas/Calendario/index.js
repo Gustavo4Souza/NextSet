@@ -5,10 +5,9 @@ import {
     StyleSheet,
     TouchableOpacity
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-
 import WeekHeader from "../../components/WeekHeader/WeekHeader";
+import CalendarHeader from "../../components/CalendarHeader/CalendarHeader";
 
 
 export default function Calendario({ navigation }) {
@@ -87,19 +86,11 @@ export default function Calendario({ navigation }) {
             <WeekHeader />
 
             <View style={styles.calendarContainer}>
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={previousMonth}>
-                        <Ionicons name="chevron-back" size={24} color="#fff" />
-                    </TouchableOpacity>
-
-                    <Text style={styles.monthYear}>
-                        {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
-                    </Text>
-
-                    <TouchableOpacity onPress={nextMonth}>
-                        <Ionicons name="chevron-forward" size={24} color="#fff" />
-                    </TouchableOpacity>
-                </View>
+                <CalendarHeader
+                    currentMonth={currentMonth}
+                    onPreviousMonth={previousMonth}
+                    onNextMonth={nextMonth}
+                />
 
                 <View style={styles.weekDays}>
                     {daysOfWeek.map((day, index) => (
@@ -123,17 +114,6 @@ const styles = StyleSheet.create({
     calendarContainer: {
         margin: 20,
         marginTop: 60,
-    },
-    header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 20,
-    },
-    monthYear: {
-        color: "#fff",
-        fontSize: 16,
-        fontWeight: "500",
     },
     weekDays: {
         flexDirection: "row",
