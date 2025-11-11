@@ -13,7 +13,6 @@ import Treino from '../paginas/Treino';
 import Calendario from '../paginas/Calendario';
 import Home from '../paginas/Home';
 import ListaDeExercicios from '../paginas/ListaDeExercicios';
-import Progresso from "../paginas/Progresso";
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -21,7 +20,6 @@ const TreinosStack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
 const CalendarioStack = createNativeStackNavigator();
 const PerfilStack = createNativeStackNavigator();
-const ProgressoStack = createNativeStackNavigator();
 
 // Stack Navigator para a aba de Treinos
 function TreinosStackScreen() {
@@ -76,14 +74,6 @@ export default function Navigation() {
   );
 }
 
-function ProgressoStackScreen() {
-  return (
-    <ProgressoStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProgressoStack.Screen name="ProgressoMain" component={Progresso} />
-    </ProgressoStack.Navigator>
-  );
-}
-
 function MainTabs() {
   return (
     <Tabs.Navigator
@@ -129,15 +119,6 @@ function MainTabs() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="Progresso"
-        component={ProgressoStackScreen}
-        options={{
-         tabBarIcon: ({ color, size }) => (
-            <Ionicons name="trending-up-outline" size={size} color={color} />
           ),
         }}
       />

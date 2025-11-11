@@ -42,16 +42,16 @@ export default function Treinos({ navigation, route }) {
       // Carrega a lista atual do AsyncStorage para garantir que temos a versão mais recente
       const treinosSalvos = await AsyncStorage.getItem(STORAGE_KEY);
       const treinosAtuais = treinosSalvos ? JSON.parse(treinosSalvos) : [];
-      
+
       // Adiciona o novo treino
       const novaLista = [...treinosAtuais, novoTreino];
-      
+
       // Salva no AsyncStorage
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(novaLista));
-      
+
       // Atualiza o estado
       setTreinosPersonalizados(novaLista);
-      
+
       console.log('Treino adicionado. Total:', novaLista.length);
       console.log('Lista completa:', novaLista.map(t => t.nome));
     } catch (error) {
@@ -62,74 +62,76 @@ export default function Treinos({ navigation, route }) {
   return (
     <View style={styles.container}>
       <WeekHeader />
-      
-      <ScrollView 
+
+      <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-      <TreinoButton
-        letra="A"
-        texto="Peitoral, Triceps e ombro"
-        onPress={() => navigation.navigate("Treino", { 
-          treino: { 
-            nome: "Treino A - Peitoral, Triceps e ombro",
-            exercicios: [
-              { nome: "Supino Reto" },
-              { nome: "Supino Inclinado" },
-              { nome: "Desenvolvimento" },
-              { nome: "Paralelas" }
-            ]
-          } 
-        })}
-      />
+        <View style={styles.buttonsContainer}>
+          <TreinoButton
+            letra="A"
+            texto="Peitoral, Triceps e ombro"
+            onPress={() => navigation.navigate("Treino", {
+              treino: {
+                nome: "Treino A - Peitoral, Triceps e ombro",
+                exercicios: [
+                  { nome: "Supino Reto" },
+                  { nome: "Supino Inclinado" },
+                  { nome: "Desenvolvimento" },
+                  { nome: "Paralelas" }
+                ]
+              }
+            })}
+          />
 
-      <TreinoButton
-        letra="B"
-        texto="Costas, Biceps e Abdomen"
-        onPress={() => navigation.navigate("Treino", { 
-          treino: { 
-            nome: "Treino B - Costas, Biceps e Abdomen",
-            exercicios: [
-              { nome: "Puxada Frontal" },
-              { nome: "Remada Curvada" },
-              { nome: "Rosca Direta" },
-              { nome: "Rosca Martelo" }
-            ]
-          } 
-        })}
-      />
+          <TreinoButton
+            letra="B"
+            texto="Costas, Biceps e Abdomen"
+            onPress={() => navigation.navigate("Treino", {
+              treino: {
+                nome: "Treino B - Costas, Biceps e Abdomen",
+                exercicios: [
+                  { nome: "Puxada Frontal" },
+                  { nome: "Remada Curvada" },
+                  { nome: "Rosca Direta" },
+                  { nome: "Rosca Martelo" }
+                ]
+              }
+            })}
+          />
 
-      <TreinoButton
-        letra="C"
-        texto="Perna"
-        onPress={() => navigation.navigate("Treino", { 
-          treino: { 
-            nome: "Treino C - Perna",
-            exercicios: [
-              { nome: "Agachamento" },
-              { nome: "Leg Press" },
-              { nome: "Cadeira Extensora" },
-              { nome: "Mesa Flexora" }
-            ]
-          } 
-        })}
-      />
+          <TreinoButton
+            letra="C"
+            texto="Perna"
+            onPress={() => navigation.navigate("Treino", {
+              treino: {
+                nome: "Treino C - Perna",
+                exercicios: [
+                  { nome: "Agachamento" },
+                  { nome: "Leg Press" },
+                  { nome: "Cadeira Extensora" },
+                  { nome: "Mesa Flexora" }
+                ]
+              }
+            })}
+          />
 
-      {/* Treinos Personalizados */}
-      {treinosPersonalizados.map((treino, index) => (
-        <TreinoButton
-          key={`personalizado-${index}-${Date.now()}`}
-          letra="P"
-          texto={treino.nome}
-          onPress={() => navigation.navigate("Treino", { treino })}
-        />
-      ))}
+          {/* Treinos Personalizados */}
+          {treinosPersonalizados.map((treino, index) => (
+            <TreinoButton
+              key={`personalizado-${index}-${Date.now()}`}
+              letra="P"
+              texto={treino.nome}
+              onPress={() => navigation.navigate("Treino", { treino })}
+            />
+          ))}
 
-      <TreinoButton
-        isAdd={true}
-        texto="Crie o seu treino"
-        onPress={() => navigation.navigate("ListaDeExercicios")}
-      />
+          <TreinoButton
+            isAdd={true}
+            texto="Crie o seu treino"
+            onPress={() => navigation.navigate("ListaDeExercicios")}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -139,7 +141,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    paddingHorizontal: 16,
+  },
+  buttonsContainer: {
+    padding: 16,
   },
   scrollContent: {
     paddingBottom: 20,
