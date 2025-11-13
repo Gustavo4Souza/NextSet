@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-} from "react-native";
+import { View, Text, StyleSheet,ScrollView, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "../../components/BackButton/BackButton";
 import ExercicioCard from "../../components/ExercicioCard/ExercicioCard";
 
 export default function Treino({ navigation, route }) {
-  // Exercícios padrão caso não sejam passados via navegação
+
   const exerciciosPadrao = [
     { nome: "Supino Reto", carga: "0", reps: "0", concluido: false },
     { nome: "Supino Inclinado", carga: "0", reps: "0", concluido: false },
@@ -22,7 +16,6 @@ export default function Treino({ navigation, route }) {
   const [exercicios, setExercicios] = useState(exerciciosPadrao);
   const [nomeTreino, setNomeTreino] = useState("Treino A");
 
-  // Recebe os exercícios passados pela navegação
   useEffect(() => {
     if (route?.params?.treino) {
       const { nome, exercicios: exerciciosTreino } = route.params.treino;
@@ -32,7 +25,6 @@ export default function Treino({ navigation, route }) {
       }
       
       if (exerciciosTreino && exerciciosTreino.length > 0) {
-        // Formata os exercícios recebidos com os campos necessários
         const exerciciosFormatados = exerciciosTreino.map((ex) => ({
           nome: ex.nome || ex,
           carga: "0",
@@ -44,7 +36,6 @@ export default function Treino({ navigation, route }) {
     }
   }, [route?.params?.treino]);
 
-  // Função para obter a data atual formatada
   const getDataAtual = () => {
     const meses = [
       "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",

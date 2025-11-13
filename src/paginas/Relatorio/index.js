@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  ScrollView, 
-  StyleSheet, 
-  Dimensions, 
-  Alert } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Dimensions, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +7,7 @@ import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
 import GoalSelector from "../../components/GoalSelector/GoalSelector";
 import FormInput from "../../components/FormInput/FormInput";
 import BackButton from "../../components/BackButton/BackButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
@@ -49,13 +43,39 @@ export default function EditProfile({ navigation }) {
     }
   };
 
-  const handleSave = () => {
-    navigation.navigate("MainTabs", { screen: "Home" });
+const handleSave = async () => {
+  const profileData = {
+    nickname,
+    email,
+    goal,
+    expectation,
+    weight,
+    height,
+    targetWeight,
+    birthDate,
+    projectStart,
+    projectEnd,
+    profileImage,
   };
+
+  try {
+    await AsyncStorage.setItem("profile", JSON.stringify(profileData));
+
+    navigation.navigate("MainTabs", {
+      screen: "Perfil",
+      params: {
+        screen: "PerfilMain",
+        params: { profile: profileData },
+      },
+    });
+  } catch (error) {
+    console.log("Erro ao salvar perfil:", error);
+  }
+};
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 50 }}>
-      <BackButton onPress={() => navigation.navigate("Config")} style={styles.backButton} />
+      <BackButton onPress={() => navigation.navigate("Registro")} style={styles.backButton} />
 
       <Text style={styles.title}>Editar Perfil</Text>
       <Text style={styles.subtitle}>Tenha uma conta ativa</Text>

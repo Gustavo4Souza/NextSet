@@ -9,17 +9,14 @@ const STORAGE_KEY = '@nextset:treinos_personalizados';
 export default function Treinos({ navigation, route }) {
   const [treinosPersonalizados, setTreinosPersonalizados] = useState([]);
 
-  // Carrega os treinos salvos ao montar o componente
   useEffect(() => {
     carregarTreinos();
   }, []);
 
-  // Escuta novos treinos via navegação
   useEffect(() => {
     if (route.params?.novoTreino) {
       const { novoTreino } = route.params;
       adicionarTreino(novoTreino);
-      // Limpa os parâmetros após adicionar
       navigation.setParams({ novoTreino: undefined });
     }
   }, [route.params?.novoTreino]);
@@ -39,17 +36,13 @@ export default function Treinos({ navigation, route }) {
 
   const adicionarTreino = async (novoTreino) => {
     try {
-      // Carrega a lista atual do AsyncStorage para garantir que temos a versão mais recente
       const treinosSalvos = await AsyncStorage.getItem(STORAGE_KEY);
       const treinosAtuais = treinosSalvos ? JSON.parse(treinosSalvos) : [];
 
-      // Adiciona o novo treino
       const novaLista = [...treinosAtuais, novoTreino];
 
-      // Salva no AsyncStorage
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(novaLista));
 
-      // Atualiza o estado
       setTreinosPersonalizados(novaLista);
 
       console.log('Treino adicionado. Total:', novaLista.length);

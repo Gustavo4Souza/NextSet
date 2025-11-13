@@ -21,7 +21,6 @@ export default function ListaDeExercicios({ navigation }) {
 
   const handleCriarTreino = () => {
     if (exerciciosSelecionados.length > 0) {
-      // Gera um nome único com timestamp
       const dataHora = new Date();
       const nomeTreino = `Treino Personalizado ${dataHora.toLocaleDateString('pt-BR')} ${dataHora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
       
@@ -32,7 +31,6 @@ export default function ListaDeExercicios({ navigation }) {
         },
       });
       
-      // Limpa a seleção após criar
       setExerciciosSelecionados([]);
     }
   };

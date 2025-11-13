@@ -5,7 +5,7 @@ import WeekHeader from "../../components/WeekHeader/WeekHeader";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 export default function Home() {
-    const [progress, setProgress] = useState(0.17); // 17%
+    const [progress, setProgress] = useState(0.17);
 
     return (
         <View style={styles.container}>
@@ -18,7 +18,6 @@ export default function Home() {
                 showPercentage={true}
             />
 
-            {/* Logo central */}
             <View style={styles.logoContainer}>
                 <Image
                     source={require("../../assets/logo.png")}

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Ionicons } from "@expo/vector-icons";
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
 import SettingsOption from "../../components/SettingsOption/SettingsOption";
-import BackButton from "../../components/BackButton/BackButton";
 
 export default function Settings({ route, navigation }) {
   const [profile, setProfile] = useState(null);
@@ -30,16 +27,16 @@ export default function Settings({ route, navigation }) {
   }, [route.params]);
 
   const handleLogout = async () => {
-    try {
-      await AsyncStorage.clear();
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Inicio" }],
-      });
-    } catch (error) {
-      console.log("Erro ao sair:", error);
-    }
-  };
+  try {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Inicio" }],
+    });
+  } catch (error) {
+    console.log("Erro ao sair:", error);
+  }
+};
+
 
   const settingsOptions = [
     { icon: "lock-closed", label: "Senha" },
@@ -51,11 +48,6 @@ export default function Settings({ route, navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-      <BackButton 
-        onPress={() => navigation.navigate("Treinos")}
-        style={styles.backButton}
-      />
-
       <Text style={styles.title}>Configurações</Text>
 
       <ProfileHeader
@@ -157,10 +149,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     padding: 20,
-  },
-  backButton: {
-    marginTop: 20,
-    marginBottom: 10,
   },
   title: {
     color: "#fff",

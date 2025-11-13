@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  StyleSheet, 
-  Image, 
-  Dimensions, 
-  Alert, 
-  ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions, Alert, ActivityIndicator } from "react-native";
 import GradientButton from "../../components/GradientButton/GradientButton";
 import FormInput from "../../components/FormInput/FormInput";
 import logo from "../../../src/assets/logo.png";
